@@ -56,7 +56,7 @@ UDFPhysLbaToPart(IN PVCB Vcb, IN uint32 RefPartNum, IN uint32 Addr)
         mov  ebx,Vcb
         mov  edx,[ebx]Vcb.PartitionMaps
         mov  ebx,pm
-        mov  ecx,PartNum
+        mov  ecx,RefPartNum
         xor  eax,eax
 loop_pl2p:
         cmp  ecx,edx
@@ -83,9 +83,9 @@ EO_pl2p:
 #ifdef UDF_DBG
     {
         // validate return value
-        UDFPrint(("")) lb_addr locAddr;
+        lb_addr locAddr;
         locAddr.logicalBlockNum = retval;
-        locAddr.partitionReferenceNum = (uint16)PartNum;
+        locAddr.partitionReferenceNum = (uint16)RefPartNum;
         UDFPartLbaToPhys(Vcb, &locAddr);
     }
 #endif // UDF_DBG
